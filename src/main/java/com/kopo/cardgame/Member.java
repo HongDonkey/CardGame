@@ -1,0 +1,77 @@
+package com.kopo.cardgame;
+
+public class Member {
+	
+	int idx;
+	String id;
+	String name;
+	String password;
+	String created;
+	String updated;
+	
+	Member(){
+		
+	}
+	
+	Member(int idx, String id, String password, String name, String created, String updated){
+
+		this.idx = idx;
+		this.id = id;		
+		this.password = password;
+		this.name = name;
+		this.created = created;
+		this.updated = updated;
+	}
+
+	Member(String id, String password, String name){
+		this.id = id;
+		this.password = password;
+		this.name = name;
+	}
+
+	Member(String id, String password){
+		this.id = id;
+		this.password = password;
+	}
+
+	public int getIdx() {
+		return idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getCreated() {
+		return created;
+	}
+
+	public void setCreated(String created) {
+		this.created = created;
+	}
+
+	public String getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(String updated) {
+		this.updated = updated;
+	}
+
+}
