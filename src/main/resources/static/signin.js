@@ -8,8 +8,8 @@ $(document).on('click', '.login_btn', function(event){
         password: password
       },
       success: function(data) {
-        if (data&&data.length) {
-          location.href = "my_card" 
+        if(data['message'] == 'success'){
+          location.href="my_card";
       } else {
         alert("일치하지 않음")
       }

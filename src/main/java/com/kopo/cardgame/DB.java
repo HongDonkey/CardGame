@@ -124,6 +124,7 @@ public class DB {
             int r = statement.executeUpdate();
             statement.close();
             message = "success";
+            
 
         } catch (Exception e){
             e.printStackTrace();
@@ -163,27 +164,30 @@ public class DB {
     return message;
 	}
 
-    public String login_api() {
+    public String login_api(Member mb) {
         this.openMember();
         String message = "fail";
     
-        ArrayList<Member> results = new ArrayList<Member>();
-        String query = "SELECT * FROM member WHERE id=? and password=?";
-
         try { 
-            PreparedStatement statement = this.conn.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()) {
-                String id = resultSet.getString("id");
-                String password = resultSet.getString("password");
-                results.add(new Member(id, password));
-                message = "success";
-            }
-            statement.close();
+            String query = "SELECT * FROM member WHERE id = ? and password = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setString(1, mb.id);
+                preparedStatement.setString(2, mb.password);
+                ResultSet resultSet = preparedStatement.executeQuery();
+    
+                if(resultSet.next()) { 
+                    //resultSet.next()가 있다는 것은 중복을 의미
+                    //아이디와 패스워드가 DB에 있는 값과 중복되어야만 함
+                    preparedStatement.close();
+                    conn.close();
+                    message = "success";
+                    return message;
+    
+                }
 
         } catch (Exception e){
             e.printStackTrace();
-
+            return message;
         } 
         
         this.close();
