@@ -33,15 +33,7 @@ public class RestApi {
 		return result;
 	}
 
-    @RequestMapping("/signup_action")
-    public HashMap<String, String> signup_action(@RequestParam("id") String id, @RequestParam("password") String password, @RequestParam("name") String name) {
-		HashMap<String, String> result = new HashMap<String, String>();
-
-        DB db = new DB();
-        String message = db.insertMember(new Member(id, password, name));        
-		result.put("message", message);
-		return result;
-	}
+   
 
 	@RequestMapping("/login_api")
 	public HashMap<String, String> login(@RequestParam("id") String id, @RequestParam("password") String password) {
@@ -51,6 +43,15 @@ public class RestApi {
 		result.put("message", message);
 		return result;      
 		
+	}   
+	@RequestMapping("/signup_action")
+    public HashMap<String, String> signup_action(@RequestParam("id") String id, @RequestParam("password") String password, @RequestParam("name") String name) {
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		DB db = new DB();
+        String message = db.insertMember(new Member(id, password, name));        
+		result.put("message", message);
+		return result;
 	}
 
 }

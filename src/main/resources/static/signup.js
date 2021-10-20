@@ -11,16 +11,19 @@ $(document).on('click', '.sign_btn', function(event){
         'name': name
       },
       success:function(data) {
-        if(data['message'] == 'success'){
+        if(data["message"] == "success"){
             console.log(111);
             alert("데이터가 입력되었습니다")
-            location.href="/";
+            location.href="/"
+          
         }
-        else if(data['message'] == 'distinct'){
+        else if(data["message"] == "distinct"){
             alert('ID 중복')
+            location.href="/signup"
         }
         else{
             alert('데이터 입력 실패')
+            location.href="/signup"
         }
         
     }

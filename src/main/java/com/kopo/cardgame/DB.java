@@ -1,13 +1,15 @@
 package com.kopo.cardgame;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+
+import com.google.common.hash.Hashing;
 
 import org.sqlite.SQLiteConfig;
 
@@ -116,6 +118,9 @@ public class DB {
         
             PreparedStatement statement = this.conn.prepareStatement(query);
             statement.setString(1, mb.id);
+            mb.password=Hashing.sha256()
+            .hashString(mb.password, StandardCharsets.UTF_8)
+            .toString();
             statement.setString(2, mb.password);
             statement.setString(3, mb.name);
             statement.setString(4, nowString);
@@ -169,9 +174,12 @@ public class DB {
         String message = "fail";
     
         try { 
-            String query = "SELECT * FROM member WHERE id = ? and password = ?";
+            String query = "SELECT * FROM member WHERE id=? and password=?";
             PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1, mb.id);
+                mb.password=Hashing.sha256()
+                    .hashString(mb.password, StandardCharsets.UTF_8)
+                    .toString();
                 preparedStatement.setString(2, mb.password);
                 ResultSet resultSet = preparedStatement.executeQuery();
     

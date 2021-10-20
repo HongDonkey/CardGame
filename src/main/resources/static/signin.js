@@ -1,6 +1,7 @@
 $(document).on('click', '.login_btn', function(event){
-  var id = $('input[name="id"]').val();
-  var password = $('input[name="password"]').val();
+  var id = $("#mb_id").val();
+  var password = $("#mb_password").val();
+  console.log(id+ "  " + password);
     $.ajax({
       url: '/login_api',
       data: {
