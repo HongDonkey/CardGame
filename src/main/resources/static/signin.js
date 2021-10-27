@@ -1,18 +1,19 @@
 $(document).on('click', '.login_btn', function(event){
-  var id = $("#mb_id").val();
-  var password = $("#mb_password").val();
-  console.log(id+ "  " + password);
+  var mb_id = $("#mb_id").val();
+  var mb_password = $("#mb_password").val();
     $.ajax({
       url: '/login_api',
       data: {
-        id: id,
-        password: password
+        'user_id': mb_id,
+        'user_password': mb_password
       },
-      success: function(data) {
-        if(data['message'] == 'success'){
+      success: function(result) {
+        if(result['idx'] && result['name'] && result['id']){
+          console.log("1234"+JSON.stringify(result))
           location.href="my_card";
       } else {
         alert("일치하지 않음")
+        console.log("456"+JSON.stringify(result));
       }
     }
   })

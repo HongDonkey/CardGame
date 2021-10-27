@@ -70,8 +70,22 @@ public class Member {
 		return updated;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setUpdated(String updated) {
 		this.updated = updated;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [created=" + created + ", id=" + id + ", idx=" + idx + ", name=" + name + ", password="
+				+ password + ", updated=" + updated + "]";
 	}
 
 }
