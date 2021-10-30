@@ -8,10 +8,13 @@ $(document).on('click', '.login_btn', function(event){
         'user_password': mb_password
       },
       success: function(result) {
-        if(result['idx'] && result['name'] && result['id']){
+        if(result['id'] == "admin"){
           console.log("1234"+JSON.stringify(result))
-          location.href="my_card";
-      } else {
+          location.href="admin";
+      } else if(result['idx'] && result['name'] && result['id']){
+        location.href="my_card"
+      } 
+      else {
         alert("일치하지 않음")
         console.log("456"+JSON.stringify(result));
       }

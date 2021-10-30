@@ -59,6 +59,7 @@
   padding: 10px 50px;
 }
 
+
 .top_button_section:after {
   content: '';
   display: block;
@@ -78,8 +79,24 @@
   border-radius: 5px 0px;
 }
 
+.logout_button {
+  display: inline-block;
+  padding: 5px 30px;
+  background: #4f3f45;
+  border: 1px solid #4f3f45;
+  cursor: pointer;
+  margin: 10px 10px 10px 10px;
+  color: #fff;
+  float: left;
+  text-decoration: none;
+  border-radius: 10px 100px / 120px;
+}
+
 .top_button:hover {
   background: #333;
+}
+.logout_button:hover{
+  background: #dd6666;
 }
 
 .select_section {

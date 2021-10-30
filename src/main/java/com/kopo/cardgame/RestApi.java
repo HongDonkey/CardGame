@@ -48,8 +48,6 @@ public class RestApi {
 		DB db = new DB();
 		Member result = db.selectMember(loginMember);
 
-		System.out.println("1111"+result.toString());
-
 		try {
 			if (result != null) {
 				session.setAttribute("is_login", true);
@@ -62,7 +60,35 @@ public class RestApi {
 		} catch (Exception e) {
 
 		}
-		System.out.println("5465"+result.toString());
+
+		return result;
+
+	}
+
+	@RequestMapping("/update_api")
+	public Member update_api(HttpServletRequest request) {
+
+		HttpSession session = request.getSession(); // 최초 사용자 로그인 성공 후 세션 값 생성
+		int idx = (Integer) session.getAttribute("idx");
+		String id = (String) session.getAttribute("id");
+		String name = (String) session.getAttribute("name");
+		System.out.print(idx + id + name);
+		Member loginMember = new Member(idx, id, name);
+		DB db = new DB();
+		Member result = db.updateMember(loginMember);
+		try {
+			if (result != null) {
+				session.setAttribute("is_login", true);
+				session.setAttribute("idx", result.idx);
+				session.setAttribute("id", result.id);
+				session.setAttribute("name", result.name);
+			} else {
+				session.invalidate();
+			}
+		} catch (Exception e) {
+
+		}
+
 		return result;
 
 	}
@@ -77,5 +103,55 @@ public class RestApi {
 		result.put("message", message);
 		return result;
 	}
+
+	@RequestMapping("/logout_api")
+	public static void logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		request.getSession(true);
+
+	}
+
+	@RequestMapping("/update_action")
+	public HashMap<String, String> update_action(@RequestParam("id") String id,
+			@RequestParam("password") String password, @RequestParam("name") String name) {
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		DB db = new DB();
+		String message = db.updateAction(new Member(id, password, name));
+		result.put("message", message);
+		return result;
+	}
+
+	@RequestMapping("/manage_member")
+	public ArrayList<Member> api_select() {
+		DB db = new DB();
+		return db.manageMember();
+	}
+
+	@RequestMapping("/admin_update")
+	public Member admin_update(@RequestParam("id") String id, HttpServletRequest request) {
+
+		HttpSession session = request.getSession(); // 최초 사용자 로그인 성공 후 세션 값 생성
+		Member loginMember = new Member(id);
+		DB db = new DB();
+		Member result = db.adminUpdate(loginMember);
+		try {
+			if (result != null) {
+				session.setAttribute("is_login", true);
+				session.setAttribute("idx", result.idx);
+				session.setAttribute("id", result.id);
+				session.setAttribute("name", result.name);
+			} else {
+				session.invalidate();
+			}
+		} catch (Exception e) {
+
+		}
+
+		return result;
+
+	}
+
+
 
 }

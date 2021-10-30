@@ -12,12 +12,24 @@ public class Member {
 	Member(){
 		
 	}
+
+	Member(String id){
+		this.id=id;
+	}
 	
 	Member(int idx, String id, String password, String name, String created, String updated){
 
 		this.idx = idx;
 		this.id = id;		
 		this.password = password;
+		this.name = name;
+		this.created = created;
+		this.updated = updated;
+	}
+
+	Member(int idx, String id, String name, String created, String updated){
+		this.idx = idx;
+		this.id = id;
 		this.name = name;
 		this.created = created;
 		this.updated = updated;
@@ -33,6 +45,12 @@ public class Member {
 		this.id = id;
 		this.password = password;
 	}
+	Member(int idx, String id, String name){
+		this.idx = idx;
+		this.id = id;
+		this.name = name;
+	}
+
 
 	public int getIdx() {
 		return idx;
