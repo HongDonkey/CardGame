@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="manageMb.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+    table {
+        width: 100%;
+    }
+    th, td {
+        padding: 2px 5px;
+        text-align: center;
+        border: 1px solid #eee;
+    }
+        th {
+            background: #f1f1f1;
+        }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="manageMb.js"></script>
+</head>
+
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>index</th>
+            <th>ID</th>
+            <th>name</th>
+            <th>입력일</th>
+            <th>수정일</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+         <!-- 컨트롤러에서 member_list에 담은 결과 값을 item에 순서대로 넣는 반복문 -->
+        <tr th:each="member: ${member_list}">           
+            <td th:text="${member.idx}"></td>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.score}"></td>
+            <td th:text="${member.created}"></td>
+            <td th:text="${member.updated}"></td>
+            <td th:text="${member.update}"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
