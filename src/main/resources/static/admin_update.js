@@ -1,7 +1,12 @@
+var a = window.location.href
+console.log(a);
+b = a.split("=",2)
+console.log(b[1]);
+var id = b[1]
 $.ajax({
-  url:'/update_api',
+  url:'/admin_update',
   data: {
-    
+    id:id
   },
   success: function(result){
     

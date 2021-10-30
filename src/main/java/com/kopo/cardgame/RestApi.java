@@ -138,9 +138,9 @@ public class RestApi {
 		try {
 			if (result != null) {
 				session.setAttribute("is_login", true);
-				session.setAttribute("idx", result.idx);
-				session.setAttribute("id", result.id);
-				session.setAttribute("name", result.name);
+				session.setAttribute("mb_idx", result.idx);
+				session.setAttribute("mb_id", result.id);
+				session.setAttribute("mb_name", result.name);
 			} else {
 				session.invalidate();
 			}

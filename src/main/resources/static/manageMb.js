@@ -7,7 +7,7 @@ $(function(){
             
             if(result&&result.length) {
                 for(var i=0; i<result.length; i++){
-                    var mb_id = result[i]["id"]
+                    let mb_id = result[i]["id"]
                     var item_string = '<tr>';
                     item_string = item_string + '<td>' + result[i]["idx"] + '</td>';
                     item_string = item_string + '<td>' + result[i]['id'] + '</td>';
@@ -35,10 +35,11 @@ $(function(){
             },
             success:function(result){
                 console.log(result);
-                // location.href="admin_update"
+                
             }
         })
-    console.log(id);
+        location.href="admin_updatePage?id="+id
+            console.log(id);
     
 
 }

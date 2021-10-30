@@ -99,4 +99,27 @@ public class CardgameController {
     }
 
 
+
+
+@RequestMapping(value="/admin_updatePage", method=RequestMethod.GET)
+public String adminUpdate(Locale Locale, Model model, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    try {
+        String id = (String) session.getAttribute("id");
+        System.out.println(id);
+        if (id.equals("admin")) {
+            System.out.println(id);
+            return "admin_update";
+        }
+        else if(id != null){
+            return "my_card"; 
+        }
+
+    } catch (Exception e) {
+    }
+
+    return "signin";
+}
+
+
 }
