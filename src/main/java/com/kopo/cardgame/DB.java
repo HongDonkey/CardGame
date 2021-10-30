@@ -75,7 +75,7 @@ public class DB {
 		return message;
 	}
 
-	public String insertMember(Member mb) { //회원가입
+	public String insertMember(Member mb) { // 회원가입
 		this.openCardGame();
 		String message = "success";
 
@@ -188,7 +188,7 @@ public class DB {
 
 	}
 
-	public Member updateMember(Member mb) { //정보수정 페이지 불러오기
+	public Member updateMember(Member mb) { // 정보수정 페이지 불러오기
 		this.openCardGame();
 		boolean is_login = false;
 		Member result = null;
@@ -220,12 +220,12 @@ public class DB {
 			return result;
 		}
 
-
 		this.close();
 		return result;
 
 	}
-	public String updateAction(Member mb) { //정보 수정 쿼리
+
+	public String updateAction(Member mb) { // 정보 수정 쿼리
 		this.openCardGame();
 		String result = "success";
 
@@ -242,13 +242,10 @@ public class DB {
 			preparedStatement.setString(2, mb.name);
 			preparedStatement.setString(3, nowString);
 			preparedStatement.setString(4, mb.id);
-			
+
 			int r = preparedStatement.executeUpdate();
 			preparedStatement.close();
 			result = "success";
-			
-
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -259,6 +256,7 @@ public class DB {
 		return result;
 
 	}
+
 	public ArrayList<Member> manageMember() {
 		this.openCardGame();
 
@@ -287,7 +285,7 @@ public class DB {
 		return results;
 	}
 
-	public Member adminUpdate(Member mb) { //정보수정 페이지 불러오기
+	public Member adminUpdate(Member mb) { // 정보수정 페이지 불러오기
 		this.openCardGame();
 		boolean is_login = false;
 		Member result = null;
@@ -317,11 +315,32 @@ public class DB {
 			return result;
 		}
 
-
 		this.close();
 		return result;
 
 	}
 
-	
+	public String deleteMember(Member mb) {
+		this.openCardGame();
+		String message = "success";
+		Member result = null;
+
+		try {
+			String query = "DELETE FROM member WHERE id=?";
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, mb.id);
+
+			int r = preparedStatement.executeUpdate();
+			// DELTE 쿼리는 excuteUpdate 메서드 사용
+			preparedStatement.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "fail";
+			return message;
+		}
+		this.close();
+		return message;
+	}
+
 }

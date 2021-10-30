@@ -1,33 +1,33 @@
 package com.kopo.cardgame;
 
 public class Member {
-	
+
 	int idx;
 	String id;
 	String name;
 	String password;
 	String created;
 	String updated;
-	
-	Member(){
-		
+
+	Member() {
+
 	}
 
-	Member(String id){
-		this.id=id;
+	Member(String id) {
+		this.id = id;
 	}
-	
-	Member(int idx, String id, String password, String name, String created, String updated){
+
+	Member(int idx, String id, String password, String name, String created, String updated) {
 
 		this.idx = idx;
-		this.id = id;		
+		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.created = created;
 		this.updated = updated;
 	}
 
-	Member(int idx, String id, String name, String created, String updated){
+	Member(int idx, String id, String name, String created, String updated) {
 		this.idx = idx;
 		this.id = id;
 		this.name = name;
@@ -35,22 +35,22 @@ public class Member {
 		this.updated = updated;
 	}
 
-	Member(String id, String password, String name){
+	Member(String id, String password, String name) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
 	}
 
-	Member(String id, String password){
+	Member(String id, String password) {
 		this.id = id;
 		this.password = password;
 	}
-	Member(int idx, String id, String name){
+
+	Member(int idx, String id, String name) {
 		this.idx = idx;
 		this.id = id;
 		this.name = name;
 	}
-
 
 	public int getIdx() {
 		return idx;

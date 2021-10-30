@@ -152,6 +152,17 @@ public class RestApi {
 
 	}
 
+	@RequestMapping("/delete_member")
+	public HashMap<String, String> delete_member(@RequestParam("id") String id, HttpServletRequest request) {
+		HashMap<String, String> result = new HashMap<String, String>();
 
+		HttpSession session = request.getSession();
+		DB db = new DB();
+		Member deleteMember = new Member(id);
+		String message = db.deleteMember(deleteMember);
+
+		result.put("message", message);
+		return result;
+	}
 
 }

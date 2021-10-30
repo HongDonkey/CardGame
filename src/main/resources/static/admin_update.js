@@ -1,8 +1,8 @@
-var a = window.location.href
-console.log(a);
-b = a.split("=",2)
-console.log(b[1]);
-var id = b[1]
+var url = window.location.href
+console.log(url);
+url_id = url.split("=",2)
+console.log(url_id[1]);
+var id = url_id[1]
 $.ajax({
   url:'/admin_update',
   data: {
@@ -36,7 +36,7 @@ $('#update_btn').click(function() {
       if(result['message']=='success'){
           console.log(result);
           alert("데이터가 수정되었습니다")
-          location.href="/my_card"
+          location.href="/admin"
           
         
       }

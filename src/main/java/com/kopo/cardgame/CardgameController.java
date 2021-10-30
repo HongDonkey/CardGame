@@ -22,9 +22,8 @@ public class CardgameController {
             System.out.println(id);
             if (id == null) {
                 return "signin";
-            }
-            else {
-                return "my_card"; 
+            } else {
+                return "my_card";
             }
 
         } catch (Exception e) {
@@ -46,16 +45,15 @@ public class CardgameController {
             System.out.println(id);
             if (id == null) {
                 return "signin";
-            }
-            else {
-                return "my_card"; 
+            } else {
+                return "my_card";
             }
 
         } catch (Exception e) {
         }
 
         return "signin";
-    
+
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -66,19 +64,18 @@ public class CardgameController {
             System.out.println(id);
             if (id == null) {
                 return "signin";
-            }
-            else {
-                return "update"; 
+            } else {
+                return "update";
             }
 
         } catch (Exception e) {
         }
 
         return "signin";
-    
+
     }
 
-    @RequestMapping(value="/admin", method=RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String manageMb(Locale Locale, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         try {
@@ -87,9 +84,8 @@ public class CardgameController {
             if (id.equals("admin")) {
                 System.out.println(id);
                 return "manageMb";
-            }
-            else if(id != null){
-                return "my_card"; 
+            } else if (id != null) {
+                return "my_card";
             }
 
         } catch (Exception e) {
@@ -98,28 +94,23 @@ public class CardgameController {
         return "signin";
     }
 
-
-
-
-@RequestMapping(value="/admin_updatePage", method=RequestMethod.GET)
-public String adminUpdate(Locale Locale, Model model, HttpServletRequest request) {
-    HttpSession session = request.getSession();
-    try {
-        String id = (String) session.getAttribute("id");
-        System.out.println(id);
-        if (id.equals("admin")) {
+    @RequestMapping(value = "/admin_updatePage", method = RequestMethod.GET)
+    public String adminUpdate(Locale Locale, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        try {
+            String id = (String) session.getAttribute("id");
             System.out.println(id);
-            return "admin_update";
-        }
-        else if(id != null){
-            return "my_card"; 
+            if (id.equals("admin")) {
+                System.out.println(id);
+                return "admin_update";
+            } else if (id != null) {
+                return "my_card";
+            }
+
+        } catch (Exception e) {
         }
 
-    } catch (Exception e) {
+        return "signin";
     }
-
-    return "signin";
-}
-
 
 }
