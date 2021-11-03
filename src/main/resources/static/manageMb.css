@@ -46,3 +46,42 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.logout_btn {
+  width: 15%;
+  height: 40px;
+  background: #393b3f;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  margin: 10px 20px 30px 40px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.create_card {
+  width: 15%;
+  height: 40px;
+  background: #393b3f;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  margin: 10px 20px 30px 40px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.card_manage {
+  width: 15%;
+  height: 40px;
+  background: #393b3f;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  margin: 10px 20px 30px 350px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+}

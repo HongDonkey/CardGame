@@ -124,31 +124,6 @@ public class DB {
 		return message;
 	}
 
-	public String insertCard(Card card) {
-		this.openCardGame();
-		String message = "success";
-		String query = "INSERT INTO card (name, atk, def, atkRate, defRate) VALUES(?, ?, ?, ?, ?)";
-
-		try {
-			PreparedStatement statement = this.conn.prepareStatement(query);
-			statement.setString(1, card.name);
-			statement.setInt(2, card.atk);
-			statement.setInt(3, card.def);
-			statement.setInt(4, card.atkRate);
-			statement.setInt(5, card.defRate);
-
-			int r = statement.executeUpdate();
-			statement.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			message = "fail";
-
-		}
-
-		this.close();
-		return message;
-	}
 
 	public Member selectMember(Member mb) { // 로그인
 		this.openCardGame();
@@ -225,7 +200,7 @@ public class DB {
 
 	}
 
-	public String updateAction(Member mb) { // 정보 수정 쿼리
+	public String memberUpdateAction(Member mb) { // 정보 수정 쿼리
 		this.openCardGame();
 		String result = "success";
 
@@ -285,7 +260,7 @@ public class DB {
 		return results;
 	}
 
-	public Member adminUpdate(Member mb) { // 정보수정 페이지 불러오기
+	public Member adminMemberUpdate(Member mb) { // 정보수정 페이지 불러오기
 		this.openCardGame();
 		boolean is_login = false;
 		Member result = null;
@@ -329,6 +304,172 @@ public class DB {
 			String query = "DELETE FROM member WHERE id=?";
 			PreparedStatement preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, mb.id);
+
+			int r = preparedStatement.executeUpdate();
+			// DELTE 쿼리는 excuteUpdate 메서드 사용
+			preparedStatement.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "fail";
+			return message;
+		}
+		this.close();
+		return message;
+	}
+
+	public String insertCard(Card card) { // 회원가입
+		this.openCardGame();
+		String message = "success";
+
+		try {
+			String query2 = "SELECT * FROM card WHERE name = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(query2);
+			preparedStatement.setString(1, card.name);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				// resultSet에 SELECT 쿼리로 요청한 카드이름을 받아왔다는 건
+				// 등록된 카드이름이 있다는 뜻이므로 중복체크에 걸림
+				preparedStatement.close();
+				conn.close();
+				message = "distinct";
+				return message;
+
+			}
+
+			String query = "INSERT INTO card (name, atk, def, atk_rate, def_rate, tribe) VALUES(?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement statement = this.conn.prepareStatement(query);
+			statement.setString(1, card.name);
+			statement.setInt(2, card.atk);
+			statement.setInt(3, card.def);
+			statement.setInt(4, card.atk_rate);
+			statement.setInt(5, card.def_rate);
+			statement.setString(6, card.tribe);
+
+			int r = statement.executeUpdate();
+			statement.close();
+			message = "success";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = "fail";
+			return message;
+
+		}
+
+		this.close();
+		return message;
+	}
+
+	public ArrayList<Card> manageCard() {
+		this.openCardGame();
+
+		ArrayList<Card> results = new ArrayList<Card>();
+		String query = "SELECT * FROM card";
+
+		try {
+			PreparedStatement statement = this.conn.prepareStatement(query);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				int idx = resultSet.getInt("idx");
+				String name = resultSet.getString("name");
+				int atk = resultSet.getInt("atk");
+				int def = resultSet.getInt("def");
+				int atk_rate = resultSet.getInt("atk_rate");
+				int def_rate = resultSet.getInt("def_rate");
+				String tribe = resultSet.getString("tribe");
+				results.add(new Card(idx, name, atk, def, atk_rate, def_rate, tribe));
+			}
+			statement.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		this.close();
+		return results;
+	}
+
+	public Card adminCardUpdate(Card card) { // 정보수정 페이지 불러오기
+		this.openCardGame();
+		
+		Card result = null;
+		try {
+			String query = "SELECT * FROM card WHERE idx=?";
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, card.idx);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				// resultSet.next()가 있다는 것은 중복을 의미
+				// 아이디와 패스워드가 DB에 있는 값과 중복되어야만 함
+
+				result = new Card();
+				result.idx = resultSet.getInt("idx");
+				result.name = resultSet.getString("name");
+				result.atk = resultSet.getInt("atk");
+				result.def = resultSet.getInt("def");
+				result.atk_rate = resultSet.getInt("atk_rate");
+				result.def_rate = resultSet.getInt("def_rate");
+				result.tribe = resultSet.getString("tribe");
+				preparedStatement.close();
+				conn.close();
+				return result;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+
+		this.close();
+		return result;
+
+	}
+
+	public String cardUpdateAction(Card card) { // 정보 수정 쿼리
+		this.openCardGame();
+		String result = "fail";
+
+		try {
+			String query = "UPDATE card SET name=?, atk=?, def=?, atk_rate=?, def_rate=?, tribe=? WHERE idx=?";
+
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, card.name);
+			preparedStatement.setInt(2, card.atk);
+			preparedStatement.setInt(3, card.def);
+			preparedStatement.setInt(4, card.atk_rate);
+			preparedStatement.setInt(5, card.def_rate);
+			preparedStatement.setString(6, card.tribe);
+			preparedStatement.setInt(7, card.idx);
+
+			int r = preparedStatement.executeUpdate();
+			preparedStatement.close();
+			result = "success";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+
+		this.close();
+		return result;
+
+	}
+
+	public String deleteCard(Card card) {
+		this.openCardGame();
+		String message = "success";
+		Card result = null;
+
+		try {
+			String query = "DELETE FROM card WHERE idx=?";
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, card.idx);
 
 			int r = preparedStatement.executeUpdate();
 			// DELTE 쿼리는 excuteUpdate 메서드 사용

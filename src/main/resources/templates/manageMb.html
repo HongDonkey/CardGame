@@ -36,16 +36,21 @@
     </thead>
     <tbody>
          <!-- 컨트롤러에서 member_list에 담은 결과 값을 item에 순서대로 넣는 반복문 -->
-        <tr th:each="member: ${member_list}">           
+        <!-- <tr th:each="member: ${member_list}">           
             <td th:text="${member.idx}"></td>
             <td th:text="${member.name}"></td>
             <td th:text="${member.score}"></td>
             <td th:text="${member.created}"></td>
             <td th:text="${member.updated}"></td>
             <td th:text="${member.update}"></td>
-        </tr>
+            <td th:text="${member.delete}"></td>
+        </tr> -->
     </tbody>
 </table>
-
+<br>
+<br>
+<input type='button' class='create_card' id='create_card' value='카드생성' style="float: left; ">
+<input type='button' class='card_manage' id='card_manage' value='카드관리' style="float: left; ">
+<input type='button' class='logout_btn' id='logout' value='로그아웃' style="float: right;">
 </body>
 </html>

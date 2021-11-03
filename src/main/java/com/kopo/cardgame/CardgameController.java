@@ -43,7 +43,7 @@ public class CardgameController {
         try {
             String id = (String) session.getAttribute("id");
             System.out.println(id);
-            if (id == null) {
+            if (id == null) { //세션에 ID정보가 없으면 로그인화면으로
                 return "signin";
             } else {
                 return "my_card";
@@ -81,9 +81,28 @@ public class CardgameController {
         try {
             String id = (String) session.getAttribute("id");
             System.out.println(id);
-            if (id.equals("admin")) {
+            if (id.equals("admin")) { //admin 계정으로 로그인했다면
                 System.out.println(id);
                 return "manageMb";
+            } else if (id != null) { //세션에 id값은 있으나 admin이 아닐 경우(일반 회원)
+                return "my_card";
+            }
+
+        } catch (Exception e) {
+        }
+
+        return "signin";
+    }
+
+    @RequestMapping(value = "/admin_member_update", method = RequestMethod.GET)
+    public String adminUpdate(Locale Locale, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        try {
+            String id = (String) session.getAttribute("id");
+            System.out.println(id);
+            if (id.equals("admin")) {
+                System.out.println(id);
+                return "admin_member_update";
             } else if (id != null) {
                 return "my_card";
             }
@@ -94,15 +113,53 @@ public class CardgameController {
         return "signin";
     }
 
-    @RequestMapping(value = "/admin_updatePage", method = RequestMethod.GET)
-    public String adminUpdate(Locale Locale, Model model, HttpServletRequest request) {
+    @RequestMapping(value = "/card_create", method = RequestMethod.GET)
+    public String card_create(Locale Locale, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         try {
             String id = (String) session.getAttribute("id");
             System.out.println(id);
             if (id.equals("admin")) {
                 System.out.println(id);
-                return "admin_update";
+                return "card_create";
+            } else if (id != null) {
+                return "my_card";
+            }
+
+        } catch (Exception e) {
+        }
+
+        return "signin";
+    }
+
+    @RequestMapping(value = "/card_manage", method = RequestMethod.GET)
+    public String manageCard(Locale Locale, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        try {
+            String id = (String) session.getAttribute("id");
+            System.out.println(id);
+            if (id.equals("admin")) { //admin 계정으로 로그인했다면
+                System.out.println(id);
+                return "manageCard";
+            } else if (id != null) { //세션에 id값은 있으나 admin이 아닐 경우(일반 회원)
+                return "my_card";
+            }
+
+        } catch (Exception e) {
+        }
+
+        return "signin";
+    }
+
+    @RequestMapping(value = "/admin_card_update", method = RequestMethod.GET)
+    public String adminUpdateCard(Locale Locale, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        try {
+            String id = (String) session.getAttribute("id");
+            System.out.println(id);
+            if (id.equals("admin")) {
+                System.out.println(id);
+                return "admin_card_update";
             } else if (id != null) {
                 return "my_card";
             }

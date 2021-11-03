@@ -6,22 +6,37 @@ public class Card {
 	String name;
 	int atk;
 	int def;
-	int atkRate;
-	int defRate;
+	int atk_rate;
+	int def_rate;
+	String tribe;
 	
 	Card(){
 		
 	}
+
+	Card(int idx){
+		this.idx = idx;
+
+	}
+
+	Card(String name , int atk, int def, int atk_rate, int def_rate, String tribe){
+		this.name = name;
+		this.atk = atk;
+		this.def = def;
+		this.atk_rate = atk_rate;
+		this.def_rate = def_rate;
+		this.tribe = tribe;
+	}
 	
 
-	Card(int idx, String name , int atk, int def, int atkRate, int defRate){
+	Card(int idx, String name , int atk, int def, int atk_rate, int def_rate, String tribe){
 		this.idx = idx;
 		this.name = name;
 		this.atk = atk;
 		this.def = def;
-		this.atkRate = atkRate;
-		this.defRate = defRate;
-		
+		this.atk_rate = atk_rate;
+		this.def_rate = def_rate;
+		this.tribe = tribe;
 	}
 
 	public int getIdx() {
@@ -56,20 +71,35 @@ public class Card {
 		this.def = def;
 	}
 
-	public int getAtkRate() {
-		return atkRate;
+
+
+	public String getTribe() {
+		return tribe;
 	}
 
-	public void setAtkRate(int atkRate) {
-		this.atkRate = atkRate;
+
+	public void setTribe(String tribe) {
+		this.tribe = tribe;
 	}
 
-	public int getDefRate() {
-		return defRate;
+
+	public int getAtk_rate() {
+		return atk_rate;
 	}
 
-	public void setDefRate(int defRate) {
-		this.defRate = defRate;
+
+	public void setAtk_rate(int atk_rate) {
+		this.atk_rate = atk_rate;
+	}
+
+
+	public int getDef_rate() {
+		return def_rate;
+	}
+
+
+	public void setDef_rate(int def_rate) {
+		this.def_rate = def_rate;
 	}
 	
 

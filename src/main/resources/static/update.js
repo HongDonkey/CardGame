@@ -21,7 +21,7 @@ $('#update_btn').click(function() {
   var name = $("#name").val();
   console.log(2);
   $.ajax({
-    url: '/update_action',
+    url: '/member_update_action',
     data: {
       'id': id,
       'password': password,

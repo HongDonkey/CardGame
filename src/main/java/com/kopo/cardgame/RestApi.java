@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestApi {
 
-	@RequestMapping("/createCard")
+	@RequestMapping("/create_card_table")
 	public HashMap<String, String> createCard() {
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		DB db = new DB();
-		String query = "CREATE TABLE card (idx INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, atk INTEGER, def INTEGER, atkRate INTEGER, defRate INTEGER)";
+		String query = "CREATE TABLE card (idx INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, atk INTEGER, def INTEGER, atk_rate INTEGER, def_rate INTEGER, tribe TEXT)";
 		String message = db.excuteCardQuery(query);
 
 		result.put("message", message);
 		return result;
 	}
 
-	@RequestMapping("/createMember")
+	@RequestMapping("/create_member_table")
 	public HashMap<String, String> createMember() {
 		HashMap<String, String> result = new HashMap<String, String>();
 
@@ -111,13 +111,13 @@ public class RestApi {
 
 	}
 
-	@RequestMapping("/update_action")
+	@RequestMapping("/member_update_action")
 	public HashMap<String, String> update_action(@RequestParam("id") String id,
 			@RequestParam("password") String password, @RequestParam("name") String name) {
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		DB db = new DB();
-		String message = db.updateAction(new Member(id, password, name));
+		String message = db.memberUpdateAction(new Member(id, password, name));
 		result.put("message", message);
 		return result;
 	}
@@ -128,19 +128,19 @@ public class RestApi {
 		return db.manageMember();
 	}
 
-	@RequestMapping("/admin_update")
-	public Member admin_update(@RequestParam("id") String id, HttpServletRequest request) {
+	@RequestMapping("/admin_member_update_page") //admin 권한으로 업데이트 페이지 이동
+	public Member admin_update_click(@RequestParam("id") String id, HttpServletRequest request) {
 
 		HttpSession session = request.getSession(); // 최초 사용자 로그인 성공 후 세션 값 생성
 		Member loginMember = new Member(id);
 		DB db = new DB();
-		Member result = db.adminUpdate(loginMember);
+		Member result = db.adminMemberUpdate(loginMember);
 		try {
 			if (result != null) {
-				session.setAttribute("is_login", true);
-				session.setAttribute("mb_idx", result.idx);
-				session.setAttribute("mb_id", result.id);
-				session.setAttribute("mb_name", result.name);
+				// session.setAttribute("is_login", true);
+				// session.setAttribute("mb_idx", result.idx);
+				// session.setAttribute("mb_id", result.id);
+				// session.setAttribute("mb_name", result.name);
 			} else {
 				session.invalidate();
 			}
@@ -152,7 +152,7 @@ public class RestApi {
 
 	}
 
-	@RequestMapping("/delete_member")
+	@RequestMapping("/delete_member") // DB 멤버 삭제
 	public HashMap<String, String> delete_member(@RequestParam("id") String id, HttpServletRequest request) {
 		HashMap<String, String> result = new HashMap<String, String>();
 
@@ -164,5 +164,77 @@ public class RestApi {
 		result.put("message", message);
 		return result;
 	}
+
+	@RequestMapping("/insert_card") // DB에 카드 정보 생성
+	public HashMap<String, String> insert_card(@RequestParam("name") String name,
+			@RequestParam("atk") int atk, 
+			@RequestParam("def") int def,
+			@RequestParam("atk_rate") int atk_rate,
+			@RequestParam("def_rate") int def_rate,
+			@RequestParam("tribe") String tribe) {
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		DB db = new DB();
+		String message = db.insertCard(new Card(name, atk, def, atk_rate, def_rate, tribe));
+		result.put("message", message);
+		return result;
+	}
+
+	@RequestMapping("/card_manage_api")
+	public ArrayList<Card> card_manage() {
+		DB db = new DB();
+		return db.manageCard();
+	}
+
+	@RequestMapping("/admin_card_update_page") // 카드 업데이트 페이지 호출
+	public Card admin_card_update(@RequestParam("idx") int idx, HttpServletRequest request) {
+
+		HttpSession session = request.getSession(); // 최초 사용자 로그인 성공 후 세션 값 생성
+		Card editCard = new Card(idx);
+		DB db = new DB();
+		Card result = db.adminCardUpdate(editCard);
+		try {
+			if (result != null) {
+				
+			} else {
+				session.invalidate();
+			}
+		} catch (Exception e) {
+
+		}
+
+		return result;
+
+	}
+
+	@RequestMapping("/card_update_action") // 카드 업데이트 동작
+	public HashMap<String, String> card_update_action(@RequestParam("idx") int idx,
+	@RequestParam("name") String name,
+	@RequestParam("atk") int atk, 
+	@RequestParam("def") int def,
+	@RequestParam("atk_rate") int atk_rate,
+	@RequestParam("def_rate") int def_rate,
+	@RequestParam("tribe") String tribe) {
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		DB db = new DB();
+		String message = db.cardUpdateAction(new Card(idx, name, atk, def, atk_rate, def_rate, tribe));
+		result.put("message", message);
+		return result;
+	}
+
+	@RequestMapping("/delete_card") // DB 카드 삭제
+	public HashMap<String, String> delete_card(@RequestParam("idx") int idx, HttpServletRequest request) {
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		HttpSession session = request.getSession();
+		DB db = new DB();
+		Card deleteCard = new Card(idx);
+		String message = db.deleteCard(deleteCard);
+
+		result.put("message", message);
+		return result;
+	}
+
 
 }
