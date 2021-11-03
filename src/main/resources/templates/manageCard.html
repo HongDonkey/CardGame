@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="manageCard.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+    table {
+        width: 100%;
+    }
+    th, td {
+        padding: 2px 5px;
+        text-align: center;
+        border: 1px solid #eee;
+    }
+        th {
+            background: #f1f1f1;
+        }
+        </style>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="manageCard.js"></script>
+</head>
+
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>index</th>
+            <th>이름</th>
+            <th>공격력</th>
+            <th>방어력</th>
+            <th>공격확률</th>
+            <th>방어확률</th>
+            <th>종족</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<br>
+<br>
+<input type='button' class='create_card' id='create_card' value='카드생성' style="float: left; ">
+<input type='button' class='manage_member' id='manage_member' value='회원관리' style="float: left; ">
+<input type='button' class='logout_btn' id='logout' value='로그아웃' style="float: right;">
+</body>
+</html>

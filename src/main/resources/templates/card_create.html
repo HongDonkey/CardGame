@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+<title>카드 생성</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="card_create.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="card_create.js"></script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card_content">
+      <div class="card_logo">
+        <h3>카드 생성</h3>
+      </div>
+      <form class="card_section">
+        이름&nbsp&nbsp&nbsp
+        <input type="text" placeholder="이름" name="name" id="name" required="required" />
+        <br>공격력
+        <input type="number" placeholder="공격력" name="atk" id="atk" required="required" />
+        <br>방어력
+        <input type="number" placeholder="방어력" name="def" id="def" required="required" />
+        <br>공격 확률
+        <select name="atk_rate" id="select_atk_rate" class="select_atk_rate">
+          <option value="10">10%</option>
+          <option value="20">20%</option>
+          <option value="30">30%</option>
+          <option value="40">40%</option>
+          <option value="50">50%</option>
+          <option value="60">60%</option>
+          <option value="70">70%</option>
+          <option value="80">80%</option>
+          <option value="90">90%</option>
+          <option value="100">100%</option>
+
+        </select>&nbsp&nbsp&nbsp&nbsp
+        방어 확률
+        <select name="def_rate" id="select_def_rate" class="select_def_rate">
+          <option value="10">10%</option>
+          <option value="20">20%</option>
+          <option value="30">30%</option>
+          <option value="40">40%</option>
+          <option value="50">50%</option>
+          <option value="60">60%</option>
+          <option value="70">70%</option>
+          <option value="80">80%</option>
+          <option value="90">90%</option>
+          <option value="100">100%</option>
+        </select>&nbsp&nbsp&nbsp&nbsp
+        종족
+        <select name="tribe" id="select_tribe" class="select_tribe">
+          <option value="None">없음</option>
+          <option value="Beast">야수</option>
+          <option value="Pirate">해적</option>
+          <option value="Quilboar">가시멧돼지</option>
+          <option value="Murloc">멀록</option>
+          <option value="Demon">악마</option>
+          <option value="Mech">기계</option>
+          <option value="Drangon">용족</option>
+          <option value="Elemental">정령</option>
+   
+        </select>
+        <input type="button" class="insert_card" value="생성" />
+      </form>
+      <br>
+      <li><a href="/admin">홈 화면으로</a></li>
+    </div>
+  </div>
+</body>
+
+</html>

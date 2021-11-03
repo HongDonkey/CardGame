@@ -1,0 +1,108 @@
+
+.card_content {
+  width: 620px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+.card_content .card_logo {
+  width: 100%;
+  text-align: center;
+  border-bottom: 3px solid #393b3f;
+  margin-bottom: 35px;
+}
+
+.card_content .card_logo h3 {
+  font-size: 16px;
+  font-family: Dotum;
+  color: #222;
+  margin-bottom: 40px;
+}
+
+.card_content .card_section {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.card_content .card_section label {
+  width: 20%;
+  height: 40px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding-right: 20px;
+  display: inline-block;
+  text-align: right;
+}
+
+.card_content .card_section input {
+  width: 70%;
+  height: 40px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  display: inline-block;
+}
+
+.card_content .card_section .insert_card {
+  width: 80%;
+  height: 40px;
+  background: #393b3f;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  margin: 30px 0px 0px 0px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.select_atk_rate {
+
+  width: 70px;
+  height: 35px;
+  /* background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 5px) center no-repeat; */
+  background-size: 20px;
+  padding: 0px 0px 0px 0px;
+  border-radius: 4px;
+  outline: 0 none;
+}
+.select_atk_rate option {
+  background: black;
+  color: #fff;
+  padding: 0px 0;
+}
+
+.select_def_rate {
+
+  width: 70px;
+  height: 35px;
+  /* background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 5px) center no-repeat; */
+  background-size: 20px;
+  padding: 5px 0px 5px 0px;
+  border-radius: 4px;
+  outline: 0 none;
+}
+.select_def_rate option {
+  background: black;
+  color: #fff;
+  padding: 0px 0;
+}
+
+.select_tribe {
+
+  width: 150px;
+  height: 35px;
+  /* background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 5px) center no-repeat; */
+  background-size: 20px;
+  padding: 0px 35px 0px 0px;
+  border-radius: 4px;
+  outline: 0 none;
+}
+.select_tribe option {
+  background: black;
+  color: #fff;
+  padding: 3px 0;
+}
