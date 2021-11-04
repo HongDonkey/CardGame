@@ -3,8 +3,10 @@ $(function () {
     url: "/manage_member",
     data: {},
     success: function (result) {
+      
       if (result && result.length) {
         for (var i = 0; i < result.length; i++) {
+          console.log(result);
           var mb_id = result[i]["id"];
           // console.log(typeof mb_id); 
           var item_string = "<tr>";
@@ -48,7 +50,7 @@ function deleteClick(id) {
       },
       success: function (result) {
           console.log(result);
-        if(result['message']=="success"){
+        if(result['message']=="success" && result['message2']=="success"){
             alert("삭제 완료")
             location.href="/admin"
         }

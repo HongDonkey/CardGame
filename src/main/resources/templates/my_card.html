@@ -11,21 +11,26 @@
 <body>
   <div id="wrap">
     <div class="top_button_section">
-      <a href="" class="top_button">카드생성</a>
+      <button class="top_button" id="makeCard">카드뽑기</a>
       <button class="logout_button" id="logout">로그아웃</button>
       <button class="update_button" id="update">정보수정</button>
+      <span class="remainPoint">남은 포인트 : </span>
     </div>
-    <ul class="player_list">
-      <li>
+
+    <div id="card">
+    <ul class="player_list" id="player_list">
+      <!-- <li>
         <span class="no">2</span>
         <h3>이름</h3>
         <span>공격력 : </span> 100<br />
         <span>방어력 : </span> 100<br />
         <span>공격확률 : </span> 100<br />
         <span>방어확률 : </span> 100<br />
+        <span>종족 : </span> 100<br />
         <button>카드 변경</button>
-      </li>
+      </li> -->
     </ul>
+  </div>
   </div>
 </body>
 

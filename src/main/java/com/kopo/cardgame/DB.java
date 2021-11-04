@@ -6,9 +6,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.google.common.hash.Hashing;
 
@@ -73,6 +79,59 @@ public class DB {
 
 		this.close();
 		return message;
+	}
+
+	public String accountCreateDB(Member mb) { // 계정별 테이블 생성
+		this.openCardGame();
+		String result = "fail";
+		
+
+		try {
+			String query = "CREATE TABLE {0} (idx INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, atk INTEGER, def INTEGER, atk_rate INTEGER, def_rate INTEGER, tribe TEXT)";
+			
+			Statement statement = conn.createStatement();
+			statement.execute(MessageFormat.format(query, mb.id));
+
+			statement.close();
+			result = "success";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+
+		this.close();
+		return result;
+
+	}
+
+	public String accountDropTable(Member mb) { // 회원삭제 시 계정의 테이블 삭제
+		this.openCardGame();
+		String result = "fail";
+		
+
+		try {
+			// String query = "DROP TABLE ? CASCADE CONSTRAINTS";
+
+			
+			// PreparedStatement prestatement = conn.prepareStatement(query);
+			// prestatement.setString(1, mb.id);
+
+			PreparedStatement prestatement = conn.prepareStatement(
+			String.format("DROP TABLE IF EXISTS %s", mb.id));
+			prestatement.execute();
+
+			prestatement.close();
+			result = "success";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+
+		this.close();
+		return result;
+
 	}
 
 	public String insertMember(Member mb) { // 회원가입
@@ -480,6 +539,67 @@ public class DB {
 			message = "fail";
 			return message;
 		}
+		this.close();
+		return message;
+	}
+
+	public ArrayList<Card> receiveCard() {
+		this.openCardGame();
+
+		ArrayList<Card> results = new ArrayList<Card>();
+		String query = "SELECT * FROM card WHERE idx = ?";
+
+		try {
+			PreparedStatement statement = this.conn.prepareStatement(query);
+			Random random = new Random();
+			int rdIdx = random.nextInt(18);
+			statement.setInt(1, rdIdx);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				int idx = resultSet.getInt("idx");
+				String name = resultSet.getString("name");
+				int atk = resultSet.getInt("atk");
+				int def = resultSet.getInt("def");
+				int atk_rate = resultSet.getInt("atk_rate");
+				int def_rate = resultSet.getInt("def_rate");
+				String tribe = resultSet.getString("tribe");
+
+				results.add(new Card(idx, name, atk, def, atk_rate, def_rate, tribe));
+			}
+			statement.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		this.close();
+		return results;
+	}
+
+	public String insertMyCard(Member mb, Card card) { // 회원가입
+		this.openCardGame();
+		String message = "success";
+			try{
+
+			String query = "INSERT INTO ? (name, atk, def, atk_rate, def_rate, tribe) VALUES(?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement statement = this.conn.prepareStatement(query);
+			statement.setString(1, mb.id);
+			statement.setString(2, card.name);
+			statement.setInt(3, card.atk);
+			statement.setInt(4, card.def);
+			statement.setInt(5, card.atk_rate);
+			statement.setInt(6, card.def_rate);
+			statement.setString(7, card.tribe);
+
+			int r = statement.executeUpdate();
+			statement.close();
+			message = "success";
+			} catch(Exception e){
+
+			}
+
 		this.close();
 		return message;
 	}

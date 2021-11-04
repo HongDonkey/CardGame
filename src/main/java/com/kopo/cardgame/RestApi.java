@@ -100,7 +100,9 @@ public class RestApi {
 
 		DB db = new DB();
 		String message = db.insertMember(new Member(id, password, name));
+		String message2 = db.accountCreateDB(new Member(id)); 
 		result.put("message", message);
+		result.put("message2", message2);
 		return result;
 	}
 
@@ -123,7 +125,7 @@ public class RestApi {
 	}
 
 	@RequestMapping("/manage_member")
-	public ArrayList<Member> api_select() {
+	public ArrayList<Member> select_member() {
 		DB db = new DB();
 		return db.manageMember();
 	}
@@ -159,9 +161,12 @@ public class RestApi {
 		HttpSession session = request.getSession();
 		DB db = new DB();
 		Member deleteMember = new Member(id);
+		Member deleteDB = new Member(id);
 		String message = db.deleteMember(deleteMember);
+		String message2 = db.accountDropTable(deleteDB);
 
 		result.put("message", message);
+		result.put("message2", message2);
 		return result;
 	}
 
@@ -184,6 +189,7 @@ public class RestApi {
 	public ArrayList<Card> card_manage() {
 		DB db = new DB();
 		return db.manageCard();
+		
 	}
 
 	@RequestMapping("/admin_card_update_page") // 카드 업데이트 페이지 호출
@@ -202,7 +208,7 @@ public class RestApi {
 		} catch (Exception e) {
 
 		}
-
+		
 		return result;
 
 	}
@@ -232,6 +238,30 @@ public class RestApi {
 		Card deleteCard = new Card(idx);
 		String message = db.deleteCard(deleteCard);
 
+		result.put("message", message);
+		return result;
+	}
+
+	@RequestMapping("/makeCard")
+	public ArrayList<Card> makeCard() { //카드뽑기(카드DB에서 하나의 행만 가져오기)
+		DB db = new DB();
+		return db.receiveCard();
+	}
+
+	@RequestMapping("/insertMyCard") // 개인 DB에 뽑은 카드 정보 입력
+	public HashMap<String, String> insertMyCard(
+			@RequestParam("id") String id,
+			@RequestParam("name") String name,
+			@RequestParam("atk") int atk, 
+			@RequestParam("def") int def,
+			@RequestParam("atk_rate") int atk_rate,
+			@RequestParam("def_rate") int def_rate,
+			@RequestParam("tribe") String tribe,
+			HttpServletRequest reuest) {
+		HashMap<String, String> result = new HashMap<String, String>();
+	
+		DB db = new DB();
+		String message = db.insertMyCard(new Member(id), new Card(name, atk, def, atk_rate, def_rate, tribe));
 		result.put("message", message);
 		return result;
 	}

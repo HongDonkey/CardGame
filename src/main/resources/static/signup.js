@@ -11,7 +11,7 @@ $(document).on('click', '.sign_btn', function(event){
         'name': name
       },
       success:function(data) {
-        if(data["message"] == "success"){
+        if(data["message"] == "success" && data["message2"] == "success"){
             alert("데이터가 입력되었습니다")
             location.href="/"
           

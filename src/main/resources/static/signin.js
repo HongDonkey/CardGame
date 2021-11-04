@@ -12,7 +12,7 @@ $(document).on('click', '.login_btn', function(event){
           console.log("1234"+JSON.stringify(result))
           location.href="admin";
       } else if(result['idx'] && result['name'] && result['id']){
-        location.href="my_card"
+        location.href="my_card?id="+mb_id
       } 
       else {
         alert("일치하지 않음")
